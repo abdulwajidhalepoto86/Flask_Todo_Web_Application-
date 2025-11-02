@@ -1,0 +1,152 @@
+/* ================================
+   MATRIX DASHBOARD THEME (Readable)
+================================== */
+body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background: black;
+    color: #0f0;
+}
+
+canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 0;
+}
+
+/* Containers */
+.container, .login-container {
+    position: relative;
+    z-index: 10;
+    background: rgba(0, 0, 0, 0.85);
+    padding: 25px;
+    border-radius: 10px;
+    max-width: 950px;
+    margin: 50px auto;
+    box-shadow: 0 0 20px #0f0;
+}
+
+/* Login/Register boxes */
+.login-container {
+    width: 320px;
+    text-align: center;
+    margin-top: 80px;
+}
+
+/* Inputs & Buttons */
+.login-container input, select, button {
+    width: 100%;
+    padding: 10px;
+    margin: 8px 0;
+    border-radius: 5px;
+    border: 1px solid #00ff00;
+    background: black;
+    color: #00ff00;
+}
+
+button {
+    cursor: pointer;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+button:hover {
+    background: #00ff0099;
+    box-shadow: 0 0 10px #00ff00;
+}
+
+/* Small Text */
+.small-text {
+    font-size: 13px;
+    margin-top: 10px;
+    color: #aaa;
+}
+
+/* Flash Messages */
+.success { color: #00ff00; }
+.error { color: #ff5555; }
+
+/* ================================
+   TABLE STYLING
+================================== */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    font-size: 15px;
+}
+
+th {
+    background: #003300;
+    color: #00ff66;
+    text-align: left;
+}
+
+th, td {
+    padding: 12px 10px;
+    border-bottom: 1px solid #005500;
+}
+
+/* Alternating row colors */
+tbody tr:nth-child(even) {
+    background: rgba(0, 255, 0, 0.05);
+}
+tbody tr:nth-child(odd) {
+    background: rgba(0, 255, 0, 0.1);
+}
+
+/* Hover effect */
+tbody tr:hover {
+    background: rgba(0, 255, 0, 0.2);
+}
+
+/* ================================
+   LINKS & BUTTONS INSIDE TABLE
+================================== */
+a {
+    color: #00ffff;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+a:hover {
+    text-shadow: 0 0 10px #00ffff;
+}
+
+/* Status Buttons */
+.status-btn {
+    padding: 6px 12px;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.status-btn.active {
+    background-color: #4caf50;
+}
+
+.status-btn.inactive {
+    background-color: #ff4444;
+}
+
+/* Table Head Glow */
+th {
+    border-bottom: 2px solid #00ff00;
+}
+
+/* Welcome Header */
+.container h2 {
+    color: #00ff99;
+    text-shadow: 0 0 10px #00ff00;
+}
+
+/* Highlight current user name */
+strong {
+    color: #00ffff;
+}

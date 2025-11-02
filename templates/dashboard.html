@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Todo App - Dashboard</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<!-- Matrix Background -->
+<canvas id="matrixCanvas"></canvas>
+
+<div class="container">
+    <!-- Header -->
+    <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap;">
+        <h2>Todo App - Dashboard</h2>
+        <div style="margin-top:10px;">
+            <span>Welcome, <strong>{{ current_user.name }}</strong></span> |
+            <a href="{{ url_for('logout') }}" style="font-weight:bold;">Logout</a>
+        </div>
+    </div>
+
+    <!-- Flash Messages -->
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        {% for category, message in messages %}
+          <p class="{{ category }}">{{ message }}</p>
+        {% endfor %}
+      {% endif %}
+    {% endwith %}
+
+    <!-- Add User Button -->
+    <p style="margin-top:20px;">
+        <a href="{{ url_for('add_user') }}">
+            <button type="button">Add User Data</button>
+        </a>
+    </p>
+
+    <!-- User Table -->
+    <table>
+        <thead>
+            <tr>
+                <th>S.No</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Contact</th>
+                <th>Status</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for user in users %}
+            <tr id="user-{{ user.id }}">
+                <td>{{ loop.index }}</td>
+                <td>{{ user.name }}</td>
+                <td>{{ user.email }}</td>
+                <td>{{ user.contact if user.contact else '-' }}</td>
+                <td>
+                    <button 
+                        class="status-btn {% if user.status == 'Active' %}active{% else %}inactive{% endif %}"
+                        data-id="{{ user.id }}">
+                        {{ user.status }}
+                    </button>
+                </td>
+                <td>
+                    <a href="{{ url_for('edit_user', id=user.id) }}">Edit</a>
+                    <a href="{{ url_for('delete_user', id=user.id) }}">Delete</a>
+                </td>
+            </tr>
+            {% else %}
+            <tr>
+                <td colspan="6" style="text-align:center;">No users found.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<!-- JS Scripts -->
+<script src="{{ url_for('static', filename='matrix.js') }}"></script>
+
+<script>
+// ✅ Updated Status Toggle Script (with CSS classes)
+document.querySelectorAll('.status-btn').forEach(btn => {
+    btn.addEventListener('click', async () => {
+        const userId = btn.dataset.id;
+        try {
+            const res = await fetch(`/toggle_status/${userId}`, { method: 'POST' });
+            const data = await res.json();
+
+            btn.textContent = data.status;
+            if (data.status === "Active") {
+                btn.classList.add('active');
+                btn.classList.remove('inactive');
+            } else {
+                btn.classList.add('inactive');
+                btn.classList.remove('active');
+            }
+        } catch (error) {
+            alert("Error updating status!");
+        }
+    });
+});
+</script>
+
+</body>
+</html>
